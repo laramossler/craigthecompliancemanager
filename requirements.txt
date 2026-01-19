@@ -1,0 +1,24 @@
+# Craig the Compliance Manager - Python Dependencies
+
+# Core AI
+anthropic>=0.40.0
+
+# API Integrations
+slack-sdk>=3.33.0
+sendgrid>=6.11.0
+
+# Configuration
+pyyaml>=6.0.1
+python-dotenv>=1.0.0
+
+# Data Management
+redis>=5.0.0  # Optional: for production state management
+
+# Utilities
+requests>=2.31.0
+python-dateutil>=2.8.2
+
+# Development
+pytest>=8.0.0
+black>=24.0.0
+flake8>=7.0.0
