@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  craig:
+    build: .
+    container_name: craig-compliance-manager
+    environment:
+      # Load from .env file
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - VANTA_CLIENT_ID=${VANTA_CLIENT_ID}
+      - VANTA_CLIENT_SECRET=${VANTA_CLIENT_SECRET}
+      - SLACK_BOT_TOKEN=${SLACK_BOT_TOKEN}
+      - SLACK_COMPLIANCE_CHANNEL=${SLACK_COMPLIANCE_CHANNEL}
+      - SENDGRID_API_KEY=${SENDGRID_API_KEY}
+      - EMAIL_FROM_ADDRESS=${EMAIL_FROM_ADDRESS}
+      - COMPANY_NAME=${COMPANY_NAME}
+      - COMPLIANCE_FRAMEWORKS=${COMPLIANCE_FRAMEWORKS}
+      - USE_REDIS=true
+      - REDIS_HOST=redis
+    depends_on:
+      - redis
+    restart: unless-stopped
+    volumes:
+      - ./logs:/var/log
+
+  redis:
+    image: redis:7-alpine
+    container_name: craig-redis
+    restart: unless-stopped
+    volumes:
+      - redis-data:/data
+    command: redis-server --appendonly yes
+
+volumes:
+  redis-data:
